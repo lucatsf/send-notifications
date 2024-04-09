@@ -1,0 +1,31 @@
+{
+  "name": "send-notifications",
+  "version": "0.0.1",
+  "description": "a AWS simple project to send notifications",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "npm run offline",
+    "offline": "npx sls offline start --host 0.0.0.0",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:debug": "IS_OFFLINE=true node --inspect --experimental-vm-modules ./node_modules/.bin/jest --runInBand --watch",
+    "test:e2e": "IS_OFFLINE=true node --experimental-vm-modules ./node_modules/.bin/jest --runInBand test/e2e",
+    "test:unit": "IS_OFFLINE=true node --experimental-vm-modules ./node_modules/.bin/jest --runInBand test/unit",
+    "test:watch": "IS_OFFLINE=true node --experimental-vm-modules ./node_modules/.bin/jest --runInBand --watchAll"
+  },
+  "keywords": ["aws", "serverless", "notifications"],
+  "author": "lucatsf",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "serverless": "^3.38.0",
+    "serverless-localstack": "^1.2.0",
+    "serverless-offline": "^13.3.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.540.0",
+    "@aws-sdk/client-s3": "^3.537.0",
+    "@aws-sdk/client-sns": "^3.540.0",
+    "aws-sdk": "^2.1582.0"
+  }
+}
