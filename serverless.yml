@@ -1,0 +1,44 @@
+service: aws-node-project
+frameworkVersion: "3.38"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:*
+            - sns:*
+            - dynamodb:*
+          Resource: "*"
+plugins:
+  - serverless-offline
+  - serverless-localstack
+
+package:
+  excludeDevDependencies: true
+
+functions:
+  authorizerFunction:
+    handler: ./src/index.handleAuthorizer
+
+  login:
+    handler: ./src/index.handleLogin
+    events:
+      - httpApi:
+          path: /
+          method: post
+
+  sendSMS:
+    handler: ./src/index.handleSendSMS
+    events:
+      - httpApi:
+          path: /send-sms
+          method: post
+          authorizer:
+            name: authorizerFunction
+            type: request
+            identitySource: method.request.header.Authorization
