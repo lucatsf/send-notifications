@@ -1,5 +1,5 @@
 {
-  "name": "send-notifications",
+  "name": "hasnotify-serverless",
   "version": "0.0.1",
   "description": "a AWS simple project to send notifications",
   "main": "index.js",
