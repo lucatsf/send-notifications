@@ -1,3 +1,5 @@
+import { phoneNumberRegex } from "../utils/regex.utils.js";
+
 function validationRequestSendSMS(data) {
   if (
     typeof data?.message !== "string" ||
@@ -15,9 +17,6 @@ function validationRequestSendSMS(data) {
       body: JSON.stringify({ error: "Invalid message length" }),
     };
   }
-
-  const phoneNumberRegex =
-    /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,7}$/;
 
   if (!phoneNumberRegex.test(data.phoneNumber)) {
     return {
