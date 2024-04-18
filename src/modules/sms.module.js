@@ -1,35 +1,15 @@
 "use strict";
 
 import { DynamoDB, SNS } from "../factories/aws/aws.factory.js";
+import { validationRequestSendSMS } from "../utils/validations.utils.js";
 
 async function sendSMS(event) {
   const body = JSON.parse(event?.body || "{}");
 
-  if (
-    typeof body?.message !== "string" ||
-    typeof body?.phoneNumber !== "string"
-  ) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: "Invalid input" }),
-    };
-  }
+  const isValidate = validationRequestSendSMS(body);
 
-  if (body?.message?.length < 3 || body?.message?.length > 160) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: "Invalid message length" }),
-    };
-  }
-
-  const phoneNumberRegex =
-    /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,7}$/;
-
-  if (!phoneNumberRegex.test(body.phoneNumber)) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: "Invalid phone number format" }),
-    };
+  if (isValidate !== "OK") {
+    return isValidate;
   }
 
   const params = {
