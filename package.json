@@ -13,7 +13,11 @@
     "test:unit": "IS_OFFLINE=true node --experimental-vm-modules ./node_modules/.bin/jest --runInBand test/unit",
     "test:watch": "IS_OFFLINE=true node --experimental-vm-modules ./node_modules/.bin/jest --runInBand --watchAll"
   },
-  "keywords": ["aws", "serverless", "notifications"],
+  "keywords": [
+    "aws",
+    "serverless",
+    "notifications"
+  ],
   "author": "lucatsf",
   "license": "ISC",
   "devDependencies": {
@@ -26,6 +30,8 @@
     "@aws-sdk/client-dynamodb": "^3.540.0",
     "@aws-sdk/client-s3": "^3.537.0",
     "@aws-sdk/client-sns": "^3.540.0",
-    "aws-sdk": "^2.1582.0"
+    "aws-sdk": "^2.1582.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
   }
 }
