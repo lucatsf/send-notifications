@@ -1,8 +1,7 @@
 "use strict";
-
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const { DynamoDB } = require("../factories/aws/aws.factory");
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { DynamoDB } from "../factories/aws/aws.factory.js";
 
 async function findUserByUsername(username) {
   const user = await DynamoDB.getItem({
@@ -48,7 +47,7 @@ async function login(event, context) {
     if (!passwordIsValid) {
       return {
         statusCode: 401,
-        body: JSON.stringify({ message: "Senha inválida" }),
+        body: JSON.stringify({ message: "Senha inválida ou Usuario inválida" }),
       };
     }
 
@@ -70,4 +69,4 @@ async function login(event, context) {
   }
 }
 
-exports = { login };
+export { login };
